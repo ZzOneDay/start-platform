@@ -1,6 +1,8 @@
 Run application:
 
-* Open repository with application by terminal
+* Open repository with application by terminal,
+* Enter commands:
+* ./gradlew build -x test
 * docker-compose down && docker-compose up --build -d
 
 Swagger:
