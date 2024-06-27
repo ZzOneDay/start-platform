@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  mongo_dmenu:
+    image: mongo:6.0.2
+    container_name: mongo
+    environment:
+      MONGO_INITDB_DATABASE: dmenu-db
+    volumes:
+      - ./scripts:/docker-entrypoint-initdb.d
+    ports:
+      - "27017:27017"
+  dmenu_application:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dmenu-application
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo_dmenu
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/dmenu-db
+    volumes:
+      - ./app/data:/app/data
